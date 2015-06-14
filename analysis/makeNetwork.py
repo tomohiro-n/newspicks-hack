@@ -16,15 +16,15 @@ import re
 import csv
 import MeCab
 
-center_coms = ["わらべや日洋","セブンイレブン"]
-#center_coms = ["わらべや日洋"]
+#center_coms = ["わらべや日洋","セブンイレブン"]
+center_coms = ["わらべや日洋"]
 outfile = "data.json"
 
 
 def run():
     companyfile = "c_names.csv"
-    tweetcsvs = ["allTweetWarabeya.csv","allTweetSeven.csv"]
-#    tweetcsvs = ["allTweetWarabeya.csv"]
+#    tweetcsvs = ["allTweetWarabeya.csv","allTweetSeven.csv"]
+    tweetcsvs = ["allTweetWarabeya.csv"]
     companies = getCompanies(companyfile)
 
     outDic = {}
@@ -37,12 +37,12 @@ def run():
         print center_com
         center_idx = companies.index(center_com)
         print "center_idx:%d"%(center_idx)
-        comratedic,alltweets = makeRateList(companies, tweetcsv, center_idx)
+        formcomratedics,alltweets = makeRateList(companies, tweetcsv, center_idx)
 #        print comratedic
 
         aDic = {}
         aDic["company"] = center_com
-        aDic["trading"] = comratedic
+        aDic["trading"] = formcomratedics
         keywords = getKeywords(alltweets)
 #        print "keywords"
 #        print keywords
@@ -53,6 +53,7 @@ def run():
 #    print outDic
     f = open(outfile, 'w')
     json.dump(outDic,f,sort_keys=True,indent=4)
+#    f.write(text.encode("utf-8"))
     f.close()
 
 def getKeywords(alltweets):
@@ -135,7 +136,15 @@ def makeRateList(companies, tweetcsv, center_idx):
             print a_rate
             comratedic[com] = a_rate
 
-    return comratedic, alltweets
+    formcomratedics = []
+    for akey in comratedic.keys():
+        name = akey
+        size = comratedic[name]
+        adic = {}
+        adic["name"] = name
+        adic["size"] = size
+        formcomratedics.append(adic)
+    return formcomratedics, alltweets
 
 def getCompanies(companyfile):
     f = open(companyfile, 'r')
