@@ -60,8 +60,11 @@ def getKeywords(alltweets):
     ptn = re.compile("名詞-固有名詞")
     eptn = re.compile(r'^[0-9A-Za-z]+')
     namedentities = []
-    for tweet in alltweets:
+    print "getkeyword"
+    for j, tweet in enumerate(alltweets):
 #        print tweet
+        if (j+1) % 1000 == 0:
+            print j+1
         a = tagger.parse(tweet)
         ws = a.split('\t')
  
@@ -94,20 +97,26 @@ def countNEs(namedentities):
     return keywords
 
 def makeRateList(companies, tweetcsv, center_idx):
+    ptns = []
+    for i, com in enumerate(companies):
+        ptn = re.compile(com)
+        ptns.append(ptn)
+
     countlist = [0]*len(companies)
     f = open(tweetcsv, 'r')
     reader = csv.reader(f)
     alltweets = []
-    for row in reader:
+    for j,row in enumerate(reader):
+        if (j+1) % 1000 == 0:
+            print j+1
         tweet = row[4]
         alltweets.append(tweet)
         for i, com in enumerate(companies):
-            if i % 10 == 0:
-                print i
  
             if i == center_idx:
                 continue
-            ptn = re.compile(com)
+#            ptn = re.compile(com)
+            ptn = ptns[i]
             if ptn.search(tweet):
                 countlist[i] += 1
     f.close()
