@@ -16,15 +16,15 @@ import re
 import csv
 import MeCab
 
-#center_coms = ["わらべや日洋","セブンイレブン"]
-center_coms = ["わらべや日洋"]
+center_coms = ["わらべや日洋","セブンイレブン"]
+#center_coms = ["わらべや日洋"]
 outfile = "data.json"
 
 
 def run():
     companyfile = "c_names.csv"
-#    tweetcsvs = ["allTweetWarabeya.csv","allTweetSeven.csv"]
-    tweetcsvs = ["allTweetWarabeya.csv"]
+    tweetcsvs = ["allTweetWarabeya.csv","allTweetSeven.csv"]
+#    tweetcsvs = ["allTweetWarabeya.csv"]
     companies = getCompanies(companyfile)
 
     outDic = {}
@@ -52,8 +52,9 @@ def run():
     #outfile
 #    print outDic
     f = open(outfile, 'w')
-    json.dump(outDic,f,sort_keys=True,indent=4)
-#    f.write(text.encode("utf-8"))
+#    json.dump(outDic,f,sort_keys=True,indent=4)
+    text = json.dumps(outDic,sort_keys=True,ensure_ascii=False,indent=4)
+    f.write(text.encode("utf-8"))
     f.close()
 
 def getKeywords(alltweets):
