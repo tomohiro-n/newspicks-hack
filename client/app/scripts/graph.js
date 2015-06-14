@@ -1,9 +1,11 @@
+var diameter = 960;
+
 // trading graph
 var tradingGraph = function(){
 	var margin = {top: 30, right: 20, bottom: 30, left: 20},
-		width = 960 - margin.left - margin.right,
+		widthMinusMargin = diameter - margin.left - margin.right,
 		barHeight = 20,
-		barWidth = width * .8;
+		barWidth = widthMinusMargin * .8;
 
 	var i = 0,
 		duration = 400,
@@ -16,7 +18,9 @@ var tradingGraph = function(){
 		.projection(function(d) { return [d.y, d.x]; });
 
 	var svg = d3.select(".trending-graph").append("svg")
-		.attr("width", width + margin.left + margin.right)
+		.attr("width", diameter)
+		.attr('viewBox', '0 0 ' + diameter + ' ' + diameter)
+		.attr('preserveAspectRatio', 'xMinYMin meet')
 		.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -143,8 +147,7 @@ var tradingGraph = function(){
 
 
 var keywordGraph = function() {
-	var diameter = 960,
-		format = d3.format(",d"),
+		var format = d3.format(",d"),
 		color = d3.scale.category20c();
 
 	var bubble = d3.layout.pack()
@@ -155,6 +158,8 @@ var keywordGraph = function() {
 	var svg = d3.select(".keywords-graph").append("svg")
 		.attr("width", diameter)
 		.attr("height", diameter)
+		.attr('viewBox', '0 0 ' + diameter + ' ' + diameter)
+		.attr('preserveAspectRatio', 'xMinYMin meet')
 		.attr("class", "bubble");
 
 	d3.json("data.json", function(error, root) {
