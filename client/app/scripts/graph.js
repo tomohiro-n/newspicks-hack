@@ -1,4 +1,5 @@
 var diameter = 960;
+var currentId = 0;
 
 // trading graph
 var tradingGraph = function(){
@@ -26,11 +27,13 @@ var tradingGraph = function(){
 
 	d3.json("data.json", function(error, rowData) {
 
-		var data = rowData.data[0];
+		var data = rowData.data[currentId];
 		var rootNode = {
 			"name": data.company,
 			"children": data.trading
 		};
+
+		$("#company-name-main").text(rootNode.name);
 
 		if (error) throw error;
 
@@ -143,7 +146,8 @@ var tradingGraph = function(){
 	function barLen(d) {
 		return d.children ? barWidth : barWidth * d.size;
 	}
-}();
+};
+tradingGraph();
 
 
 var keywordGraph = function() {
@@ -166,7 +170,7 @@ var keywordGraph = function() {
 		if (error) throw error;
 
 
-		var data = root.data[0];
+		var data = root.data[currentId];
 		var rootNode = {
 			"name": data.company,
 			"children": data.keywords
@@ -206,5 +210,13 @@ var keywordGraph = function() {
 	}
 
 	d3.select(self.frameElement).style("height", diameter + "px");
-}();
+};
+keywordGraph();
 
+$( ".retry" ).click(function() {
+	currentId = currentId == 0 ? 1 : 0;
+	d3.select(".trading-graph").selectAll("svg").remove();
+	d3.select(".keywords-graph").selectAll("svg").remove();
+	tradingGraph();
+	keywordGraph();
+});
