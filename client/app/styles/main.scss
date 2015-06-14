@@ -1,6 +1,11 @@
 // bower:scss
 // endbower
 
+$key_color: #fdd835;
+$sub_color: #000;
+$bg_color: #ddd;
+$card_color: #fff;
+
 .node rect {
 	cursor: pointer;
 	fill: #fff;
@@ -41,4 +46,12 @@ path.link {
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
+}
+
+
+#introduction,#result {
+  text-align: center;
+}
+.introduction {
+
 }
