@@ -17,7 +17,7 @@ var tradingGraph = function(){
 	var diagonal = d3.svg.diagonal()
 		.projection(function(d) { return [d.y, d.x]; });
 
-	var svg = d3.select(".trending-graph").append("svg")
+	var svg = d3.select(".trading-graph").append("svg")
 		.attr("width", diameter)
 		.attr('viewBox', '0 0 ' + diameter + ' ' + diameter)
 		.attr('preserveAspectRatio', 'xMinYMin meet')
