@@ -6,6 +6,13 @@ $sub_color: #000;
 $bg_color: #ddd;
 $card_color: #fff;
 
+body {
+  margin: 0;
+  h1,h2,h3,p {
+    margin-top: 0;
+  }
+}
+
 .node rect {
 	cursor: pointer;
 	fill: #fff;
@@ -49,9 +56,87 @@ path.link {
 }
 
 
+.button {
+  display: inline-block;
+  height: 48px;
+  line-height: 48px;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 0 50px;
+  cursor: pointer;
+  &:hover {
+    transition: .5s color,background-color;
+  }
+  &.search {
+    background-color: $sub_color;
+    color: #fff;
+    margin-top: 24px;
+    &:hover {
+      color: $key_color;
+    }
+  }
+  &.retry {
+    border: 2px solid $sub_color;
+    
+  }
+}
+
+
 #introduction,#result {
   text-align: center;
 }
 .introduction {
+  background-color: $key_color;
+  padding: 48px 8px;
+  img {
+    width: 320px;
+  }
+  h1 {
+    display: none;
+  }
+  h2 {
+    font-size: 18px;
+    span {
+      font-size: 36px;
+      display: block;
+    }
+  }
+  p {
+    font-size: 12px;
+  }
+}
+.search-result {
+  background-color: $bg_color;
+  .company-name {
+    background: $key_color url(../images/bg_line.png) no-repeat 50% 50%;
+    background-size: 100% auto;
+    padding: 16px 8px 8px;
+    >div {
+      padding: 32px 8px;
+      background: url(../images/bg_company.png) no-repeat 50% 0;
+      background-size: 308px;
+    }
+    h1 {
+      margin-bottom: 0;
+      font-size: 24px;
+    }
+    h1 + p {
+      margin-top: 0;
+    }
+  }
 
+  .content-card {
+    margin: 8px;
+    padding: 16px;
+    background-color: $card_color;
+    border-radius: 3px;
+    box-shadow: 0 2px 1px 0 rgba(#000, .1);
+    font-size: 14px;
+  }
+
+  .search-entry {
+    h3 {
+      font-size: 12px;
+    }
+  }
 }
