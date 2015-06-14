@@ -73,6 +73,8 @@ def getKeywords(alltweets):
         for i,w in enumerate(ws):
             if ptn.search(w):
                 new_w = ws[i-3].strip()
+                if len(set(list(new_w))) < 2:
+                    continue
                 if not eptn.match(new_w):
                     namedentities.append(new_w)
    
@@ -88,14 +90,27 @@ def countNEs(namedentities):
     for w in namedentities:
         vocabdic[w] += 1
 
+    sizes = []
+    all_c = 0
+    for v in vocab:
+        size = vocabdic[v]
+        sizes.append(size)
+        all_c += size
+
+    min_size = 0
+    if len(sizes) > 19:
+        s_sizes = sorted(sizes)
+        min_size = s_sizes[-20]
+
     keywords = []
     for v in vocab:
         name = v
         size = vocabdic[v]
-        adic = {}
-        adic["name"] = name
-        adic["size"] = size
-        keywords.append(adic)
+        if size >= min_size:
+            adic = {}
+            adic["name"] = name
+            adic["size"] = size
+            keywords.append(adic)
     return keywords
 
 def makeRateList(companies, tweetcsv, center_idx):
