@@ -65,7 +65,7 @@ path.link {
   padding: 0 50px;
   cursor: pointer;
   &:hover {
-    transition: .5s color,background-color;
+    transition: .5s color,background-color,opacity;
   }
   &.search {
     background-color: $sub_color;
@@ -77,7 +77,25 @@ path.link {
   }
   &.retry {
     border: 2px solid $sub_color;
-    
+    color: $sub_color;
+    &:hover {
+      opacity: .5;
+    }
+  }
+  &.entry {
+    background-color: $sub_color;
+    color: $key_color;
+    border-radius: 0;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    &:hover {
+      background-color: $key_color;
+      color: $sub_color;
+    }
   }
 }
 
@@ -108,7 +126,7 @@ path.link {
 .search-result {
   background-color: $bg_color;
   .company-name {
-    background: $key_color url(../images/bg_line.png) no-repeat 50% 50%;
+    background: $key_color url(../images/bg_line.png) no-repeat 50% 0;
     background-size: 100% auto;
     padding: 16px 8px 8px;
     >div {
@@ -134,9 +152,47 @@ path.link {
     font-size: 14px;
   }
 
-  .search-entry {
+  .search-retry {
+    padding: 16px 0 24px;
+    margin-bottom: 48px;
     h3 {
       font-size: 12px;
+      font-weight: normal;
     }
   }
+}
+.trading-graph {
+  height: 50px;
+  overflow: hidden;
+  svg {
+    width: 120%;
+  }
+}
+.keywords-graph {
+  height: 350px;
+  overflow: hidden;
+  svg {
+    width: 100%;
+  }
+}
+
+svg {
+    font-size: 24px !important;
+  margin: 0;
+  display: inline-block;
+  path {
+    stroke: #000 !important;
+    stroke-width: 4px;
+  }
+  circle {
+    fill: #fff !important;
+    stroke: #000 !important;
+    stroke-width: 4px;
+  }
+  text {
+    font-size: 24px !important;
+  }
+}
+.node rect {
+  fill: #fff;
 }
