@@ -1,0 +1,45 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
+
+'''
+Created on Jun 13, 2015
+
+上場企業名の取得
+
+@author: ochi
+'''
+
+import os
+import json
+import pickle
+
+def run():
+    companyfile = "c_names.pickle"
+    tweetcsv = "allTweet.csv"
+    companies = getCompanies(companyfile)
+    rates = makeRateList(companies)
+
+    ####
+    f = open(companyfile, 'r')
+    allDic = json.load(f)
+    f.close()
+#    print allDic.keys()
+    objlist = allDic["hits"]["hits"]
+    companies = []
+    for obj in objlist:
+        c_name =  obj["_source"]["company_name"]
+        companies.append(c_name)
+
+    print "len(companies):%d"%(len(companies))
+    g = open(outfile, 'w')
+    pickle.dump(companies, g)
+    g.close()
+
+def getCompanies(companyfile):
+    f = open(companyfile, 'r')
+    comapnies = pickle.load(companyfile)
+    f.close()
+    return companies
+
+if __name__ == "__main__":
+    run()
